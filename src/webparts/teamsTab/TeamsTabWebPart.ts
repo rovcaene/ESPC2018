@@ -64,12 +64,18 @@ export default class TeamsTabWebPart extends BaseClientSideWebPart<ITeamsTabWebP
     }
   }
 
+  protected getFolderRelativeUrl(): string {
+    if (this._teamsContext) {
+      return (this._teamsContext as any).channelRelativeUrl;
+    }
+    else {
+      return this.properties.pictureLibrary;
+    }
+  }
+
   public render(): void {
     // Get the folder relative url based on whether you're in SharePoint or Teams
-    const folderRelativeUrl =
-      (this._teamsContext) ?
-      (this._teamsContext as any).channelRelativeUrl :
-      this._listDropDownOptions.filter(opt => opt.key == this.properties.pictureLibrary);
+    const folderRelativeUrl = this.getFolderRelativeUrl();
 
     const element: React.ReactElement<ITeamsTabProps> = React.createElement(
       TeamsTab,

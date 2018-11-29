@@ -1,7 +1,7 @@
+
 export interface IList {
   id: string;
   title: string;
-  serverRelativeUrl?: string;
 }
 
 export interface IPicture {

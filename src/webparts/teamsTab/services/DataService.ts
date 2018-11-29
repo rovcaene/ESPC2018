@@ -11,7 +11,7 @@ export default class DataService implements IDataService {
       `${this.webFullUrl}/_api/Web/Lists?$select=Id,Title,RootFolder/ServerRelativeUrl&$filter=BaseTemplate eq 109&$expand=RootFolder`,
       SPHttpClient.configurations.v1)
       .then(response => response.json())
-      .then(json => json.value.map(list => ({ id: list.Id, title: list.Title, serverRelativeUrl: list.ServerRelativeUrl })));
+      .then(json => json.value.map(list => ({ id: list.RootFolder.ServerRelativeUrl, title: list.Title })));
   }
 
   public getPicturesFromFolder(folderServerRelativeUrl: string): Promise<IPicture[]> {
